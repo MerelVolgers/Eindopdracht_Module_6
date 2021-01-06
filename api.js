@@ -41,7 +41,7 @@ getData();
 
 
 const deleteDataById = async (id) => {
-    const result = await fetch (`apiUrl${id}`, {
+    const result = await fetch (`${apiUrl}${id}`, {
         method: "DELETE",
     });
     const json = await result.json();
