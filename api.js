@@ -3,7 +3,6 @@ const apiUrl = "https://jsonbox.io/box_1eace51228e3d7789800/";
 const endPoint = "box_1eace51228e3d7789800";
 
 
-
 const getData = async () => {
     try {
         const response = await fetch (apiUrl, {
@@ -19,13 +18,14 @@ const getData = async () => {
 };
 
 
-// const data = {description: "buy avocado's", done:false};
+// const data = {description: "clean room", done:false};
 
 
 const postData = async () => { 
+    // const data = createNewItem;
     const result = await fetch (apiUrl, {
         method: "POST",
-        body: JSON.stringify(data),
+        body: JSON.stringify(data), //<----- data = unidentified?
         headers: {
             "Content-Type" : "application/json"
         }
@@ -34,7 +34,7 @@ const postData = async () => {
     console.log(json);
 };
 
-// postData();
+postData();
 
 // getData();
 
