@@ -19,7 +19,6 @@ const getData = async () => {
 };
 
 
-
 // const data = {description: "buy avocado's", done:false};
 
 
@@ -37,17 +36,18 @@ const postData = async () => {
 
 // postData();
 
-getData();
+// getData();
 
 
 const deleteDataById = async (id) => {
-    const result = await fetch (`${apiUrl}${id}`, {
+    const idToRemove = apiUrl + id;
+    const result = await fetch (idToRemove, {
         method: "DELETE",
     });
     const json = await result.json();
     console.log(json);
 };
 
-deleteDataById("55ff5d6e15d6b2b00170547d5");
+// deleteDataById("5ff5de205d6b2b0017054860");
 
-getData();
+// getData();
