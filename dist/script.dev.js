@@ -53,7 +53,8 @@ var createNewTaskBox = function createNewTaskBox(task) {
   removeButton.addEventListener("click", function (event) {
     taskBox.remove();
     deleteDataById(task._id);
-  });
+  }); // <----------------- EDIT TASKS ------------------------------>
+
   editButton.addEventListener("click", function () {
     newTask.disabled = !newTask.disabled;
     newTask.addEventListener("keyup", function (event) {
@@ -69,7 +70,7 @@ var createNewTaskBox = function createNewTaskBox(task) {
 
       ;
     });
-  }); // <---------checkbox werkt met CSS nog niet met PUT --------------->
+  }); // <-------------------CHECK TASKS------------------------------>
 
   checkBox.addEventListener("change", function (event) {
     if (checkBox.checked == true) {

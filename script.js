@@ -44,7 +44,7 @@ const createNewTaskBox = (task) => {
         taskBox.remove();
         deleteDataById(task._id);
     });
-
+// <----------------- EDIT TASKS ------------------------------>
     editButton.addEventListener("click", () => {
         newTask.disabled =! newTask.disabled;
         newTask.addEventListener("keyup", (event) =>{
@@ -56,8 +56,7 @@ const createNewTaskBox = (task) => {
             };
         })
     })
-// <---------checkbox werkt met CSS nog niet met PUT --------------->
-
+// <-------------------CHECK TASKS------------------------------>
     checkBox.addEventListener("change", (event) => {
         if (checkBox.checked == true){
             newTask.classList.add("striketrough");
