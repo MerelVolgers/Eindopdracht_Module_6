@@ -27,7 +27,7 @@ addTaskButton.addEventListener("click", (event) => {
     } else {
         let task = {description: newTaskInput, done:false};
         createNewItem(task);
-        postData(task); // <--- iets gaat hier mis, wordt wel in de DOM geshowd, maar niet gepost
+        postData(task); 
     }
 })
 

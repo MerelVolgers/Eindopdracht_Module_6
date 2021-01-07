@@ -21,11 +21,11 @@ const getData = async () => {
 // const data = {description: "clean room", done:false};
 
 
-const postData = async () => { 
+const postData = async (data) => { 
     // const data = createNewItem;
     const result = await fetch (apiUrl, {
         method: "POST",
-        body: JSON.stringify(data), //<----- data = unidentified?
+        body: JSON.stringify(data), 
         headers: {
             "Content-Type" : "application/json"
         }
@@ -34,7 +34,7 @@ const postData = async () => {
     console.log(json);
 };
 
-postData();
+// postData();
 
 // getData();
 
