@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  text-align: center;
 }
 
 body {
@@ -25,12 +26,12 @@ body .input_div #input {
   margin: 5px;
   height: 50px;
   outline: none;
-  background-color: green;
+  background-color: fff;
   width: 400px;
   font-size: 18px;
-  border: none;
+  border: 2px solid green;
   border-radius: 25px;
-  color: white;
+  color: green;
 }
 body .input_div #addTaskButton {
   margin: 10px;
@@ -58,14 +59,21 @@ body #toDoList .taskBox {
   margin-bottom: 2px;
   border-bottom: 2px solid green;
 }
+body #toDoList .taskBox .checkBox {
+  cursor: pointer;
+}
+body #toDoList .taskBox .checkBox:hover {
+  transform: rotate(30deg);
+}
 body #toDoList .taskBox .task_input {
   margin: 5px;
+  padding: 10px;
   background: none;
   outline: none;
   color: green;
   border: none;
   width: 350px;
-  font-size: 14px;
+  font-size: 20px;
 }
 body #toDoList .taskBox .striketrough {
   text-decoration: line-through;

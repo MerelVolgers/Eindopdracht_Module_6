@@ -53,8 +53,7 @@ var createNewTaskBox = function createNewTaskBox(task) {
   removeButton.addEventListener("click", function (event) {
     taskBox.remove();
     deleteDataById(task._id);
-  }); // <------------edit werkt nog niet met PUT, wel in DOM ------->
-
+  });
   editButton.addEventListener("click", function () {
     newTask.disabled = !newTask.disabled;
     newTask.addEventListener("keyup", function (event) {
@@ -64,21 +63,32 @@ var createNewTaskBox = function createNewTaskBox(task) {
           description: newTaskText,
           done: false
         };
-        putNewData(editedTask); //<------iets werkt niet
-
+        putNewText(task._id, editedTask);
         newTask.disabled = true;
       }
 
       ;
     });
-  }); // <--------------------checkbox werkt  --------------->
+  }); // <---------checkbox werkt met CSS nog niet met PUT --------------->
 
   checkBox.addEventListener("change", function (event) {
     if (checkBox.checked == true) {
       newTask.classList.add("striketrough");
+      newTaskInput = event.target.value;
+      var taskDone = {
+        description: newTaskInput,
+        done: true
+      };
+      putDone(task._id, taskDone);
     } else {
       checkBox.uncheck;
       newTask.classList.remove("striketrough");
+      newTaskInput = event.target.value;
+      var _taskDone = {
+        description: newTaskInput,
+        done: false
+      };
+      putDone(task._id, _taskDone);
     }
   });
 }; // <------------------ ADDS & POSTS A NEW TASK ------------------>
@@ -95,19 +105,21 @@ addTaskButton.addEventListener("click", function (event) {
     };
     createNewTaskBox(task);
     postData(task);
+    inputField.value = " ";
   }
 });
 inputField.addEventListener("keyup", function (event) {
   newTaskInput = event.target.value;
 
   if (event.keyCode === 13) {
-    event.preventDefault();
+    // event.preventDefault();
     var task = {
       description: newTaskInput,
       done: false
     };
     createNewTaskBox(task);
     postData(task);
+    inputField.value = " ";
   } else if (inputField.value == " ") {
     alert("Type a new task to add something!");
   }

@@ -99,39 +99,75 @@ var deleteDataById = function deleteDataById(id) {
       }
     }
   });
-};
+}; // <-----------PUT: update en bestaande taak met de PUT method ----->
 
-var putNewData = function putNewData() {
-  var result, json;
-  return regeneratorRuntime.async(function putNewData$(_context4) {
+
+var putNewText = function putNewText(id, data) {
+  var idToUpdate, result, json;
+  return regeneratorRuntime.async(function putNewText$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
-          _context4.next = 2;
-          return regeneratorRuntime.awrap(fetch(apiUrl, {
+          idToUpdate = apiUrl + id;
+          _context4.next = 3;
+          return regeneratorRuntime.awrap(fetch(idToUpdate, {
             method: "PUT",
-            body: JSON.stringify(),
+            body: JSON.stringify(data),
             headers: {
               "Content-Type": "application/json"
             }
           }));
 
-        case 2:
+        case 3:
           result = _context4.sent;
-          _context4.next = 5;
+          _context4.next = 6;
           return regeneratorRuntime.awrap(result.json());
 
-        case 5:
+        case 6:
           json = _context4.sent;
           console.log(json);
 
-        case 7:
+        case 8:
         case "end":
           return _context4.stop();
       }
     }
   });
-}; // const putNewData = async (id, data) => {
+}; // <------PUT: update een bestaande taak de property done of niet done--->
+
+
+var putDone = function putDone(id, data) {
+  var idToUpdate, result, json;
+  return regeneratorRuntime.async(function putDone$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          idToUpdate = apiUrl + id;
+          _context5.next = 3;
+          return regeneratorRuntime.awrap(fetch(idToUpdate, {
+            method: "PUT",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }));
+
+        case 3:
+          result = _context5.sent;
+          _context5.next = 6;
+          return regeneratorRuntime.awrap(result.json());
+
+        case 6:
+          json = _context5.sent;
+          console.log(json);
+
+        case 8:
+        case "end":
+          return _context5.stop();
+      }
+    }
+  });
+}; // const putDone = async (id, data) => {
 //     const descriptionToEdit = apiUrl + id;
 //     const result = await fetch (descriptionToEdit, {
 //         method: "PUT",

@@ -44,26 +44,32 @@ const createNewTaskBox = (task) => {
         taskBox.remove();
         deleteDataById(task._id);
     });
-// <------------edit werkt nog niet met PUT, wel in DOM ------->
+
     editButton.addEventListener("click", () => {
         newTask.disabled =! newTask.disabled;
         newTask.addEventListener("keyup", (event) =>{
             if (event.keyCode===13){
                 const newTaskText = event.target.value;
                 let editedTask = {description: newTaskText, done:false};
-                putNewData(editedTask); //<------iets werkt niet
+                putNewText(task._id, editedTask); 
                 newTask.disabled= true;
             };
         })
     })
-// <--------------------checkbox werkt  --------------->
+// <---------checkbox werkt met CSS nog niet met PUT --------------->
 
     checkBox.addEventListener("change", (event) => {
         if (checkBox.checked == true){
             newTask.classList.add("striketrough");
+            newTaskInput = event.target.value
+            let taskDone = {description: newTaskInput, done:true};
+            putDone(task._id, taskDone); 
         } else {
             checkBox.uncheck;
             newTask.classList.remove("striketrough");
+            newTaskInput = event.target.value;
+            let taskDone = {description: newTaskInput, done:false};
+            putDone(task._id, taskDone);
         }
         
     });
@@ -80,16 +86,18 @@ addTaskButton.addEventListener("click", (event) => {
         let task = {description: newTaskInput, done:false};
         createNewTaskBox(task);
         postData(task); 
+        inputField.value = " ";
     }
 })
 
 inputField.addEventListener ("keyup", (event) => {
     newTaskInput = event.target.value;
     if (event.keyCode === 13) {
-        event.preventDefault();
+        // event.preventDefault();
         let task = {description: newTaskInput, done:false};
         createNewTaskBox(task);
         postData(task);
+        inputField.value = " ";
     } else if (inputField.value == " ") {
         alert ("Type a new task to add something!")
     }
