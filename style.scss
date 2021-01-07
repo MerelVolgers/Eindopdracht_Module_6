@@ -1,0 +1,111 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height:100%;
+    background-color: fff;
+    color:lightcoral;
+
+    h1{
+        font-size: 40px;
+        font-weight: 250;
+        text-align: center;
+
+    }
+
+    .input_div {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        #input{
+            padding: 10px;
+            margin: 5px;
+            height: 50px;
+            outline: none;
+            background-color: green ;
+            width: 400px;
+            font-size: 18px;
+            border:none;
+            border-radius: 25px;
+            color:white;
+        }
+
+        #addTaskButton{
+            margin:10px;
+            height: 40px;
+            width:40px;
+            border-radius: 20px;
+            outline:none;
+            border:none;
+            color: blue;
+            cursor: pointer;
+
+            &:hover{
+                background-color: lightcoral;
+            }
+        }
+    }
+
+    #toDoList{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-top: 20px;
+
+        .taskBox{
+            padding: 10px;
+            margin-bottom: 2px;
+            border-bottom: 2px solid green;
+
+            .task_input{
+                margin: 5px;
+                background: none;
+                // background-color: lightcoral;
+                outline: none;
+                color: green;
+                border: none;
+                width: 350px;
+                font-size: 14px;
+            }
+
+            .editButton{
+                font-size: 12px;
+                margin: 5px;
+                padding: 5px;
+                background:none;
+                color:orange;
+                border:none;
+                cursor: pointer;
+
+                &:hover{
+                    transform: rotate(30deg);
+                }
+            }
+
+            .removeButton{
+                font-size: 12px;
+                margin:5px;
+                padding:5px;
+                background:none;
+                border: none;
+                color:red;
+                cursor: pointer;
+
+                &:hover{
+                    transform: rotate(30deg);
+                }
+            }
+        }
+
+    }
+
+}
+
+

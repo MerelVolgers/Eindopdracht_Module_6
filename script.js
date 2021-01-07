@@ -1,8 +1,8 @@
 const addTaskButton = document.getElementById("addTaskButton");
-const toDoList = document.getElementById("list");
+const toDoList = document.getElementById("toDoList");
 const inputField = document.getElementById("input");
-const removeAllButton = document.getElementById("removeAllButton");
-const trashBin = `<button><i id="trash" class="far fa-trash-alt"></i></button>`;
+
+// <-------------- LOADS SAVED TASKS ----------------------->
 
 const getTasks = async () => {
     const data = await getData();
@@ -12,14 +12,51 @@ const getTasks = async () => {
 }
 getTasks();
 
+// <--------------- CREATES A NEW TASK ------------------------->
 const createNewItem = (task) => {
-    const newTask = document.createElement("li");
-    newTask.innerHTML = (`${task.description} ${trashBin}`);
-    newTask.classList.add("task");
-    // newTask.setAttribute("id", task._id);
-    toDoList.append(newTask);
+    const taskBox = document.createElement("div");
+    taskBox.classList.add("taskBox");
+
+    const checkBox = document.createElement("input");
+    checkBox.type = "checkbox";
+    checkBox.checked = false;
+    checkBox.classList.add("checkBox");
+    
+    const editButton = document.createElement("button");
+    editButton.innerHTML = (`<i class="fas fa-edit"></i>`)
+    editButton.classList.add("editButton");
+
+    const removeButton = document.createElement("button");
+    removeButton.innerHTML = (`<i class="far fa-trash-alt"></i>`)
+    removeButton.classList.add("removeButton");
+
+    const newTask = document.createElement("input");
+    newTask.value = (`${task.description}`);
+    newTask.disabled = true;
+    newTask.classList.add("task_input");
+    newTask.setAttribute("id", task._id);
+    newTask.type="text";
+
+    toDoList.appendChild(taskBox);
+    taskBox.appendChild(checkBox);
+    taskBox.appendChild(newTask);
+    taskBox.appendChild(editButton);
+    taskBox.appendChild(removeButton);
+
     input.value = " ";
-}
+
+    removeButton.addEventListener("click", () =>{
+        taskBox.remove();
+        deleteDataById(task._id);
+    });
+
+    editButton.addEventListener("click", () => {
+
+    });
+
+};
+
+// <------------------ ADDS & POSTS A NEW TASK ------------------>
 
 addTaskButton.addEventListener("click", (event) => {
     if (inputField.value == " ") {
@@ -35,15 +72,27 @@ inputField.addEventListener("keyup", (event) =>{
     newTaskInput = event.target.value
 }); 
 
-removeAllButton.addEventListener("click", (event) => {
-    toDoList.innerHTML = " ";
-})
+// <--------------------CHECKBOX ------------------------------>
+// const checkedCheckBox = (task) => {
+//     if (checkBox.checked == true){
+//         taskBox.classList.add("strikeTrough") ;   
+//     }
+// };
 
-// trashBin.addEventListener("click", (event) => {
-//     //  let task = {done:true};
-//     toDoList.innerHTML = " ";
+// <---------------------- EDIT BUTTON -------------------------->
+
+// editButton.addEventListener("click", (event) =>{
+//      input.disabled =!input.disabled;
+//      const newTaskText = event.target.value;
+//      let editedTask = {description: newTaskText, done: false}
+//      putData(task);
 // })
+//
 
-
-
+// editButton.addEventListener("click", (event) =>{
+//     this.edit(input)
+// })
+// edit(input){
+//     input.disabled =!input.disabled;
+// }
 

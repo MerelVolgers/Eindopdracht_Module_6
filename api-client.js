@@ -22,7 +22,6 @@ const getData = async () => {
 
 
 const postData = async (data) => { 
-    // const data = createNewItem;
     const result = await fetch (apiUrl, {
         method: "POST",
         body: JSON.stringify(data), 
@@ -33,10 +32,6 @@ const postData = async (data) => {
     const json = await result.json();
     console.log(json);
 };
-
-// postData();
-
-// getData();
 
 
 const deleteDataById = async (id) => {

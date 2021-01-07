@@ -1,0 +1,93 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  background-color: fff;
+  color: lightcoral;
+}
+body h1 {
+  font-size: 40px;
+  font-weight: 250;
+  text-align: center;
+}
+body .input_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+body .input_div #input {
+  padding: 10px;
+  margin: 5px;
+  height: 50px;
+  outline: none;
+  background-color: green;
+  width: 400px;
+  font-size: 18px;
+  border: none;
+  border-radius: 25px;
+  color: white;
+}
+body .input_div #addTaskButton {
+  margin: 10px;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  color: blue;
+  cursor: pointer;
+}
+body .input_div #addTaskButton:hover {
+  background-color: lightcoral;
+}
+body #toDoList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+}
+body #toDoList .taskBox {
+  padding: 10px;
+  margin-bottom: 2px;
+  border-bottom: 2px solid green;
+}
+body #toDoList .taskBox .task_input {
+  margin: 5px;
+  background: none;
+  outline: none;
+  color: green;
+  border: none;
+  width: 350px;
+  font-size: 14px;
+}
+body #toDoList .taskBox .editButton {
+  font-size: 12px;
+  margin: 5px;
+  padding: 5px;
+  background: none;
+  color: orange;
+  border: none;
+  cursor: pointer;
+}
+body #toDoList .taskBox .editButton:hover {
+  transform: rotate(30deg);
+}
+body #toDoList .taskBox .removeButton {
+  font-size: 12px;
+  margin: 5px;
+  padding: 5px;
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+}
+body #toDoList .taskBox .removeButton:hover {
+  transform: rotate(30deg);
+}

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" type="text/css" href="dist/styles.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="dist/style.css"> -->
     <script src="https://kit.fontawesome.com/c7755ed50b.js" crossorigin="anonymous"></script>
-    <script defer type="text/javascript" src="api.js"></script>
+    <script defer type="text/javascript" src="api-client.js"></script>
     <script defer type="text/javascript" src="script.js"></script>
 
 
@@ -17,20 +17,16 @@
     </header>
 
     <main>
-        <div>
-        <p> New Task: <input type="text" placeholder="add new task.." id="input"/> 
-        </p>
-        <button id="addTaskButton"> Add Task </button>
+        <div class="input_div">
+        <input id="input" type="text" placeholder="Add new task.." /> 
+        <button id="addTaskButton"> <i class="fas fa-plus"></i> </button>
         </div>
 
-        <div>
-            <h3> To Do List: </h3>
-            <p id="list"> </p>
+        <div id="toDoList">
+            
         </div>
 
-        <div>
-            <button id="removeAllButton"> Remove All</button>
-        </div>
+        
 
     </main>
 
