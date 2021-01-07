@@ -38,8 +38,7 @@ var getData = function getData() {
       }
     }
   }, null, null, [[0, 11]]);
-}; // const data = {description: "clean room", done:false};
-
+};
 
 var postData = function postData(data) {
   var result, json;
@@ -100,5 +99,47 @@ var deleteDataById = function deleteDataById(id) {
       }
     }
   });
-}; // deleteDataById("5ff5de205d6b2b0017054860");
-// getData();
+};
+
+var putNewData = function putNewData() {
+  var result, json;
+  return regeneratorRuntime.async(function putNewData$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          _context4.next = 2;
+          return regeneratorRuntime.awrap(fetch(apiUrl, {
+            method: "PUT",
+            body: JSON.stringify(),
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }));
+
+        case 2:
+          result = _context4.sent;
+          _context4.next = 5;
+          return regeneratorRuntime.awrap(result.json());
+
+        case 5:
+          json = _context4.sent;
+          console.log(json);
+
+        case 7:
+        case "end":
+          return _context4.stop();
+      }
+    }
+  });
+}; // const putNewData = async (id, data) => {
+//     const descriptionToEdit = apiUrl + id;
+//     const result = await fetch (descriptionToEdit, {
+//         method: "PUT",
+//         body: JSON.stringify(data),
+//         headers: {
+//             "Content-Type" : "application/json",
+//         },
+//     });
+//     const json = await result.json();
+//     console.log(json);
+// }

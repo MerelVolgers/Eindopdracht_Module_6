@@ -17,10 +17,6 @@ const getData = async () => {
     }
 };
 
-
-// const data = {description: "clean room", done:false};
-
-
 const postData = async (data) => { 
     const result = await fetch (apiUrl, {
         method: "POST",
@@ -43,6 +39,28 @@ const deleteDataById = async (id) => {
     console.log(json);
 };
 
-// deleteDataById("5ff5de205d6b2b0017054860");
 
-// getData();
+const putNewData = async () => {
+    const result = await fetch (apiUrl, {
+        method: "PUT",
+        body: JSON.stringify(),
+        headers: {
+            "Content-Type" : "application/json",
+        },
+    });
+    const json = await result.json();
+    console.log(json);
+}
+
+// const putNewData = async (id, data) => {
+//     const descriptionToEdit = apiUrl + id;
+//     const result = await fetch (descriptionToEdit, {
+//         method: "PUT",
+//         body: JSON.stringify(data),
+//         headers: {
+//             "Content-Type" : "application/json",
+//         },
+//     });
+//     const json = await result.json();
+//     console.log(json);
+// }

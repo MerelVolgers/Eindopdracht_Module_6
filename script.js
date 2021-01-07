@@ -7,13 +7,13 @@ const inputField = document.getElementById("input");
 const getTasks = async () => {
     const data = await getData();
     const getTask = data.map(task =>{
-        createNewItem(task);
+        createNewTaskBox(task);
     });
 }
 getTasks();
 
 // <--------------- CREATES A NEW TASK ------------------------->
-const createNewItem = (task) => {
+const createNewTaskBox = (task) => {
     const taskBox = document.createElement("div");
     taskBox.classList.add("taskBox");
 
@@ -21,7 +21,14 @@ const createNewItem = (task) => {
     checkBox.type = "checkbox";
     checkBox.checked = false;
     checkBox.classList.add("checkBox");
-    
+
+    const newTask = document.createElement("input");
+    newTask.type="text";
+    newTask.value = (`${task.description}`);
+    newTask.setAttribute("id", task._id);
+    newTask.disabled = true;
+    newTask.classList.add("task_input");
+
     const editButton = document.createElement("button");
     editButton.innerHTML = (`<i class="fas fa-edit"></i>`)
     editButton.classList.add("editButton");
@@ -30,69 +37,64 @@ const createNewItem = (task) => {
     removeButton.innerHTML = (`<i class="far fa-trash-alt"></i>`)
     removeButton.classList.add("removeButton");
 
-    const newTask = document.createElement("input");
-    newTask.value = (`${task.description}`);
-    newTask.disabled = true;
-    newTask.classList.add("task_input");
-    newTask.setAttribute("id", task._id);
-    newTask.type="text";
-
     toDoList.appendChild(taskBox);
-    taskBox.appendChild(checkBox);
-    taskBox.appendChild(newTask);
-    taskBox.appendChild(editButton);
-    taskBox.appendChild(removeButton);
+    taskBox.append(checkBox, newTask, editButton, removeButton);
 
-    input.value = " ";
-
-    removeButton.addEventListener("click", () =>{
+    removeButton.addEventListener("click", (event) =>{
         taskBox.remove();
         deleteDataById(task._id);
     });
-
+// <------------edit werkt nog niet met PUT, wel in DOM ------->
     editButton.addEventListener("click", () => {
+        newTask.disabled =! newTask.disabled;
+        newTask.addEventListener("keyup", (event) =>{
+            if (event.keyCode===13){
+                const newTaskText = event.target.value;
+                let editedTask = {description: newTaskText, done:false};
+                putNewData(editedTask); //<------iets werkt niet
+                newTask.disabled= true;
+            };
+        })
+    })
+// <--------------------checkbox werkt  --------------->
 
+    checkBox.addEventListener("change", (event) => {
+        if (checkBox.checked == true){
+            newTask.classList.add("striketrough");
+        } else {
+            checkBox.uncheck;
+            newTask.classList.remove("striketrough");
+        }
+        
     });
 
 };
 
 // <------------------ ADDS & POSTS A NEW TASK ------------------>
+//<---------------kunnen deze in 1 functie ???? ----------------->
 
 addTaskButton.addEventListener("click", (event) => {
     if (inputField.value == " ") {
-        alert ("Type a new task to add something");
+        alert ("Type a new task to add something!");
     } else {
         let task = {description: newTaskInput, done:false};
-        createNewItem(task);
+        createNewTaskBox(task);
         postData(task); 
     }
 })
 
-inputField.addEventListener("keyup", (event) =>{
-    newTaskInput = event.target.value
-}); 
+inputField.addEventListener ("keyup", (event) => {
+    newTaskInput = event.target.value;
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        let task = {description: newTaskInput, done:false};
+        createNewTaskBox(task);
+        postData(task);
+    } else if (inputField.value == " ") {
+        alert ("Type a new task to add something!")
+    }
+});
 
-// <--------------------CHECKBOX ------------------------------>
-// const checkedCheckBox = (task) => {
-//     if (checkBox.checked == true){
-//         taskBox.classList.add("strikeTrough") ;   
-//     }
-// };
 
-// <---------------------- EDIT BUTTON -------------------------->
 
-// editButton.addEventListener("click", (event) =>{
-//      input.disabled =!input.disabled;
-//      const newTaskText = event.target.value;
-//      let editedTask = {description: newTaskText, done: false}
-//      putData(task);
-// })
-//
-
-// editButton.addEventListener("click", (event) =>{
-//     this.edit(input)
-// })
-// edit(input){
-//     input.disabled =!input.disabled;
-// }
 
