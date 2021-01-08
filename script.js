@@ -19,7 +19,7 @@ const createNewTaskBox = (task) => {
 
     const checkBox = document.createElement("input");
     checkBox.type = "checkbox";
-    checkBox.checked = false;
+    // checkBox.checked = false;
     checkBox.classList.add("checkBox");
 
     const newTask = document.createElement("input");
@@ -47,26 +47,30 @@ const createNewTaskBox = (task) => {
 // <----------------- EDIT TASKS ------------------------------>
     editButton.addEventListener("click", () => {
         newTask.disabled =! newTask.disabled;
+        newTask.classList.add("edit_task");
         newTask.addEventListener("keyup", (event) =>{
             if (event.keyCode===13){
                 const newTaskText = event.target.value;
                 let editedTask = {description: newTaskText, done:false};
                 putNewText(task._id, editedTask); 
                 newTask.disabled= true;
+                newTask.classList.remove("edit_task");
             };
         })
     })
 // <-------------------CHECK TASKS------------------------------>
+// <-------------------description verandert na checken?!?!?---->
     checkBox.addEventListener("change", (event) => {
         if (checkBox.checked == true){
             newTask.classList.add("striketrough");
-            newTaskInput = event.target.value
+            newTaskInput = event.target.value;
             let taskDone = {description: newTaskInput, done:true};
             putDone(task._id, taskDone); 
-        } else {
-            checkBox.uncheck;
+            checkBox.checked;
+        } else if (checkBox.checked == false) {
+            // checkBox.uncheck;
             newTask.classList.remove("striketrough");
-            newTaskInput = event.target.value;
+            
             let taskDone = {description: newTaskInput, done:false};
             putDone(task._id, taskDone);
         }
@@ -82,6 +86,7 @@ addTaskButton.addEventListener("click", (event) => {
     if (inputField.value == " ") {
         alert ("Type a new task to add something!");
     } else {
+        newTaskInput = event.target.value;
         let task = {description: newTaskInput, done:false};
         createNewTaskBox(task);
         postData(task); 

@@ -137,14 +137,14 @@ var putNewText = function putNewText(id, data) {
 
 
 var putDone = function putDone(id, data) {
-  var idToUpdate, result, json;
+  var idDone, result, json;
   return regeneratorRuntime.async(function putDone$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
-          idToUpdate = apiUrl + id;
+          idDone = apiUrl + id;
           _context5.next = 3;
-          return regeneratorRuntime.awrap(fetch(idToUpdate, {
+          return regeneratorRuntime.awrap(fetch(idDone, {
             method: "PUT",
             body: JSON.stringify(data),
             headers: {
@@ -167,15 +167,4 @@ var putDone = function putDone(id, data) {
       }
     }
   });
-}; // const putDone = async (id, data) => {
-//     const descriptionToEdit = apiUrl + id;
-//     const result = await fetch (descriptionToEdit, {
-//         method: "PUT",
-//         body: JSON.stringify(data),
-//         headers: {
-//             "Content-Type" : "application/json",
-//         },
-//     });
-//     const json = await result.json();
-//     console.log(json);
-// }
+};

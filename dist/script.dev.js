@@ -33,8 +33,8 @@ var createNewTaskBox = function createNewTaskBox(task) {
   var taskBox = document.createElement("div");
   taskBox.classList.add("taskBox");
   var checkBox = document.createElement("input");
-  checkBox.type = "checkbox";
-  checkBox.checked = false;
+  checkBox.type = "checkbox"; // checkBox.checked = false;
+
   checkBox.classList.add("checkBox");
   var newTask = document.createElement("input");
   newTask.type = "text";
@@ -57,6 +57,7 @@ var createNewTaskBox = function createNewTaskBox(task) {
 
   editButton.addEventListener("click", function () {
     newTask.disabled = !newTask.disabled;
+    newTask.classList.add("edit_task");
     newTask.addEventListener("keyup", function (event) {
       if (event.keyCode === 13) {
         var newTaskText = event.target.value;
@@ -66,11 +67,13 @@ var createNewTaskBox = function createNewTaskBox(task) {
         };
         putNewText(task._id, editedTask);
         newTask.disabled = true;
+        newTask.classList.remove("edit_task");
       }
 
       ;
     });
   }); // <-------------------CHECK TASKS------------------------------>
+  // <-------------------description verandert na checken?!?!?---->
 
   checkBox.addEventListener("change", function (event) {
     if (checkBox.checked == true) {
@@ -81,10 +84,10 @@ var createNewTaskBox = function createNewTaskBox(task) {
         done: true
       };
       putDone(task._id, taskDone);
-    } else {
-      checkBox.uncheck;
+      checkBox.checked;
+    } else if (checkBox.checked == false) {
+      // checkBox.uncheck;
       newTask.classList.remove("striketrough");
-      newTaskInput = event.target.value;
       var _taskDone = {
         description: newTaskInput,
         done: false
@@ -100,6 +103,7 @@ addTaskButton.addEventListener("click", function (event) {
   if (inputField.value == " ") {
     alert("Type a new task to add something!");
   } else {
+    newTaskInput = event.target.value;
     var task = {
       description: newTaskInput,
       done: false

@@ -7,13 +7,34 @@
 
 body {
   height: 100%;
-  background-color: fff;
-  color: lightcoral;
+  background-color: black;
+  color: white;
+  display: grid;
+  grid-template-columns: 80px auto 80px;
+  grid-template-rows: 200px auto 100px;
+  grid-template-areas: ". h ." ". m ." ". f .";
 }
-body h1 {
-  font-size: 40px;
-  font-weight: 250;
+body header {
+  grid-area: h;
+}
+body header h1 {
+  padding: 10px;
+  margin-top: 50px;
+  font-size: 80px;
+  color: fff;
   text-align: center;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+  }
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+}
+body main {
+  grid-area: m;
 }
 body .input_div {
   display: flex;
@@ -29,9 +50,13 @@ body .input_div #input {
   background-color: fff;
   width: 400px;
   font-size: 18px;
-  border: 2px solid green;
+  border: 2px solid #ff4da6;
   border-radius: 25px;
-  color: green;
+  color: #ff4da6;
+}
+body .input_div #input::placeholder {
+  color: black;
+  font-size: 18px;
 }
 body .input_div #addTaskButton {
   margin: 10px;
@@ -39,12 +64,13 @@ body .input_div #addTaskButton {
   width: 40px;
   border-radius: 20px;
   outline: none;
-  border: none;
-  color: blue;
+  border-color: #ff4da6;
+  color: #ff4da6;
   cursor: pointer;
 }
 body .input_div #addTaskButton:hover {
-  background-color: lightcoral;
+  background-color: #ff4da6;
+  color: black;
 }
 body #toDoList {
   display: flex;
@@ -52,53 +78,80 @@ body #toDoList {
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 50px;
 }
 body #toDoList .taskBox {
-  padding: 10px;
-  margin-bottom: 2px;
-  border-bottom: 2px solid green;
+  padding: 15px;
+  margin: 5px;
+  border-left: 2px solid #ff4da6;
+  border-bottom: 2px solid #ff4da6;
+  border-radius: 20px;
+}
+body #toDoList .taskBox:hover {
+  transform: scale(1.05);
 }
 body #toDoList .taskBox .checkBox {
   cursor: pointer;
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+  padding: 0px;
 }
 body #toDoList .taskBox .checkBox:hover {
-  transform: rotate(30deg);
+  transform: scale(1.5);
 }
 body #toDoList .taskBox .task_input {
-  margin: 5px;
-  padding: 10px;
-  background: none;
-  outline: none;
-  color: green;
+  margin-left: 10px;
+  text-align: left;
+  padding: px;
+  background: transparent;
+  color: #ff4da6;
   border: none;
   width: 350px;
-  font-size: 20px;
+  font-size: 25px;
 }
 body #toDoList .taskBox .striketrough {
   text-decoration: line-through;
 }
+body #toDoList .taskBox .edit_task {
+  text-decoration: underline;
+}
 body #toDoList .taskBox .editButton {
-  font-size: 12px;
+  font-size: 20px;
   margin: 5px;
   padding: 5px;
-  background: none;
-  color: orange;
+  background: transparent;
+  color: lightpink;
   border: none;
   cursor: pointer;
 }
 body #toDoList .taskBox .editButton:hover {
-  transform: rotate(30deg);
+  transform: scale(1.5);
 }
 body #toDoList .taskBox .removeButton {
-  font-size: 12px;
+  font-size: 20px;
   margin: 5px;
   padding: 5px;
-  background: none;
+  background: transparent;
   border: none;
-  color: red;
+  color: lightpink;
   cursor: pointer;
 }
 body #toDoList .taskBox .removeButton:hover {
-  transform: rotate(30deg);
+  transform: scale(1.5);
+}
+body footer {
+  grid-area: f;
+  margin-top: 100px;
+}
+body footer h4 {
+  margin: 5px;
+  padding: 5px;
+}
+body footer .icons {
+  color: #ff4da6;
+  margin: 5px;
+}
+body footer .icons i:hover {
+  transform: scale(1.5);
 }

@@ -4,17 +4,46 @@
     box-sizing: border-box;
     text-align: center;
 }
+$backgroundcolor: black;
+$textcolor: white;
+$thirdcolor: #ff4da6;
+$fourthcolor: lightpink;
 
 body{
     height:100%;
-    background-color: fff;
-    color:lightcoral;
+    background-color: $backgroundcolor;
+    color:$textcolor;
+    
+    display: grid;
+    grid-template-columns: 80px auto 80px;
+    grid-template-rows: 200px auto 100px;
+    grid-template-areas: 
+    ". h ."
+    ". m ."
+    ". f .";
 
-    h1{
-        font-size: 40px;
-        font-weight: 250;
-        text-align: center;
+    header{
+        grid-area: h;
 
+        h1{
+            padding: 10px;
+            margin-top: 50px;
+            font-size: 80px;
+            color: fff;
+            text-align: center;
+            animation: glow 1s ease-in-out infinite alternate;
+    
+            .glow {
+                @keyframes glow {
+                    from {text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;}
+                    to {text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;}
+                }
+            }
+        }
+    }
+
+    main{
+        grid-area: m;
     }
 
     .input_div {
@@ -31,9 +60,14 @@ body{
             background-color: fff ;
             width: 400px;
             font-size: 18px;
-            border:2px solid green;
+            border:2px solid $thirdcolor;
             border-radius: 25px;
-            color:green;
+            color:$thirdcolor;
+        }
+
+        #input::placeholder{
+            color:$backgroundcolor;
+            font-size:18px;
         }
 
         #addTaskButton{
@@ -42,12 +76,13 @@ body{
             width:40px;
             border-radius: 20px;
             outline:none;
-            border:none;
-            color: blue;
+            border-color: $thirdcolor;
+            color: $thirdcolor;
             cursor: pointer;
 
             &:hover{
-                background-color: lightcoral;
+                background-color: $thirdcolor;
+                color:$backgroundcolor
             }
         }
     }
@@ -58,67 +93,107 @@ body{
         justify-content: center;
         align-items: center;
         text-align: center;
-        margin-top: 20px;
+        margin-top: 50px;
 
         .taskBox{
-            padding: 10px;
-            margin-bottom: 2px;
-            border-bottom: 2px solid green;
+            padding: 15px;
+            margin: 5px;
+            border-left: 2px solid $thirdcolor;
+            border-bottom: 2px solid $thirdcolor;
+            border-radius: 20px;
+
+            &:hover{
+                transform: scale(1.05);
+                // background-color:$thirdcolor;
+                
+
+                .task_input{
+                    // color:$backgroundcolor;
+                }
+
+
+            }
 
             .checkBox {
                 cursor: pointer;
+                width: 20px;
+                height: 20px;
+                margin: 10px;
+                padding: 0px;
 
                 &:hover{
-                    transform: rotate(30deg);
+                    transform: scale(1.5);;
                 }
             }
 
             .task_input{
-                margin: 5px;
-                padding: 10px;
-                background: none;
-                // background-color: lightcoral;
-                outline: none;
-                color: green;
+                margin-left: 10px;
+                text-align: left;
+                padding: px;
+                background: transparent;
+                color: $thirdcolor;
                 border: none;
                 width: 350px;
-                font-size: 20px;
+                font-size: 25px;
             }
 
             .striketrough{
                 text-decoration: line-through;
             }
 
+            .edit_task{
+                text-decoration: underline;
+            }
+
             .editButton{
-                font-size: 12px;
+                font-size: 20px;
                 margin: 5px;
                 padding: 5px;
-                background:none;
-                color:orange;
+                background:transparent;
+                color:$fourthcolor;
                 border:none;
                 cursor: pointer;
 
                 &:hover{
-                    transform: rotate(30deg);
+                    transform: scale(1.5);
                 }
             }
 
             .removeButton{
-                font-size: 12px;
+                font-size: 20px;
                 margin:5px;
                 padding:5px;
-                background:none;
+                background:transparent;
                 border: none;
-                color:red;
+                color:$fourthcolor;
                 cursor: pointer;
 
                 &:hover{
-                    transform: rotate(30deg);
+                    transform: scale(1.5);
                 }
             }
         }
 
     }
+    footer{
+        grid-area:f;
+        margin-top: 100px;
+
+        h4{
+            margin:5px;
+            padding:5px;
+        }
+
+        .icons{
+            color:$thirdcolor;
+            margin:5px;
+    
+            i:hover{
+                transform: scale(1.5);
+            }
+        }
+    }
+    
 
 }
 
