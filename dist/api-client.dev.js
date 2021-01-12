@@ -100,11 +100,12 @@ var deleteDataById = function deleteDataById(id) {
     }
   });
 }; // <-----------PUT: update en bestaande taak met de PUT method ----->
+// <------PUT: update een bestaande taak de property done of niet done--->
 
 
-var putNewText = function putNewText(id, data) {
+var putData = function putData(id, data) {
   var idToUpdate, result, json;
-  return regeneratorRuntime.async(function putNewText$(_context4) {
+  return regeneratorRuntime.async(function putData$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
@@ -130,40 +131,6 @@ var putNewText = function putNewText(id, data) {
         case 8:
         case "end":
           return _context4.stop();
-      }
-    }
-  });
-}; // <------PUT: update een bestaande taak de property done of niet done--->
-
-
-var putDone = function putDone(id, data) {
-  var idDone, result, json;
-  return regeneratorRuntime.async(function putDone$(_context5) {
-    while (1) {
-      switch (_context5.prev = _context5.next) {
-        case 0:
-          idDone = apiUrl + id;
-          _context5.next = 3;
-          return regeneratorRuntime.awrap(fetch(idDone, {
-            method: "PUT",
-            body: JSON.stringify(data),
-            headers: {
-              "Content-Type": "application/json"
-            }
-          }));
-
-        case 3:
-          result = _context5.sent;
-          _context5.next = 6;
-          return regeneratorRuntime.awrap(result.json());
-
-        case 6:
-          json = _context5.sent;
-          console.log(json);
-
-        case 8:
-        case "end":
-          return _context5.stop();
       }
     }
   });

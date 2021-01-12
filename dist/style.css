@@ -3,6 +3,7 @@
   margin: 0;
   box-sizing: border-box;
   text-align: center;
+  font-family: "Abel", sans-serif;
 }
 
 body {
@@ -81,7 +82,7 @@ body #toDoList {
   margin-top: 50px;
 }
 body #toDoList .taskBox {
-  padding: 15px;
+  padding: 5px;
   margin: 5px;
   border-left: 2px solid #ff4da6;
   border-bottom: 2px solid #ff4da6;
@@ -103,11 +104,11 @@ body #toDoList .taskBox .checkBox:hover {
 body #toDoList .taskBox .task_input {
   margin-left: 10px;
   text-align: left;
-  padding: px;
+  padding: 5px;
   background: transparent;
   color: #ff4da6;
   border: none;
-  width: 350px;
+  width: 300px;
   font-size: 25px;
 }
 body #toDoList .taskBox .striketrough {
@@ -115,6 +116,7 @@ body #toDoList .taskBox .striketrough {
 }
 body #toDoList .taskBox .edit_task {
   text-decoration: underline;
+  background-color: lightpink;
 }
 body #toDoList .taskBox .editButton {
   font-size: 20px;

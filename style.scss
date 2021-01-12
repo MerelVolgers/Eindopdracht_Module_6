@@ -3,6 +3,7 @@
     margin: 0;
     box-sizing: border-box;
     text-align: center;
+    font-family: 'Abel', sans-serif;
 }
 $backgroundcolor: black;
 $textcolor: white;
@@ -96,7 +97,7 @@ body{
         margin-top: 50px;
 
         .taskBox{
-            padding: 15px;
+            padding: 5px;
             margin: 5px;
             border-left: 2px solid $thirdcolor;
             border-bottom: 2px solid $thirdcolor;
@@ -104,14 +105,6 @@ body{
 
             &:hover{
                 transform: scale(1.05);
-                // background-color:$thirdcolor;
-                
-
-                .task_input{
-                    // color:$backgroundcolor;
-                }
-
-
             }
 
             .checkBox {
@@ -129,11 +122,11 @@ body{
             .task_input{
                 margin-left: 10px;
                 text-align: left;
-                padding: px;
+                padding: 5px;
                 background: transparent;
                 color: $thirdcolor;
                 border: none;
-                width: 350px;
+                width: 300px;
                 font-size: 25px;
             }
 
@@ -143,6 +136,7 @@ body{
 
             .edit_task{
                 text-decoration: underline;
+                background-color:$fourthcolor;
             }
 
             .editButton{

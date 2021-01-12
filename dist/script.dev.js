@@ -49,7 +49,8 @@ var createNewTaskBox = function createNewTaskBox(task) {
   removeButton.innerHTML = "<i class=\"far fa-trash-alt\"></i>";
   removeButton.classList.add("removeButton");
   toDoList.appendChild(taskBox);
-  taskBox.append(checkBox, newTask, editButton, removeButton);
+  taskBox.append(checkBox, newTask, editButton, removeButton); // <-------------------- REMOVE BUTTON -------------------------->
+
   removeButton.addEventListener("click", function (event) {
     taskBox.remove();
     deleteDataById(task._id);
@@ -65,7 +66,7 @@ var createNewTaskBox = function createNewTaskBox(task) {
           description: newTaskText,
           done: false
         };
-        putNewText(task._id, editedTask);
+        putData(task._id, editedTask);
         newTask.disabled = true;
         newTask.classList.remove("edit_task");
       }
@@ -73,59 +74,49 @@ var createNewTaskBox = function createNewTaskBox(task) {
       ;
     });
   }); // <-------------------CHECK TASKS------------------------------>
-  // <-------------------description verandert na checken?!?!?---->
 
   checkBox.addEventListener("change", function (event) {
     if (checkBox.checked == true) {
       newTask.classList.add("striketrough");
-      newTaskInput = event.target.value;
       var taskDone = {
-        description: newTaskInput,
+        description: "".concat(task.description),
         done: true
       };
-      putDone(task._id, taskDone);
-      checkBox.checked;
+      putData(task._id, taskDone);
     } else if (checkBox.checked == false) {
-      // checkBox.uncheck;
       newTask.classList.remove("striketrough");
       var _taskDone = {
-        description: newTaskInput,
+        description: "".concat(task.description),
         done: false
       };
-      putDone(task._id, _taskDone);
+      putData(task._id, _taskDone);
     }
   });
 }; // <------------------ ADDS & POSTS A NEW TASK ------------------>
-//<---------------kunnen deze in 1 functie ???? ----------------->
 
 
+var addNewTask = function addNewTask() {
+  var newTaskInput = inputField.value;
+  var task = {
+    description: newTaskInput,
+    done: false
+  };
+  createNewTaskBox(task);
+  postData(task);
+  inputField.value = " ";
+};
+
+inputField.addEventListener("keyup", function (event) {
+  if (inputField.value == " ") {
+    alert("Type a new task to add something!");
+  } else if (event.keyCode === 13) {
+    addNewTask();
+  }
+});
 addTaskButton.addEventListener("click", function (event) {
   if (inputField.value == " ") {
     alert("Type a new task to add something!");
   } else {
-    newTaskInput = event.target.value;
-    var task = {
-      description: newTaskInput,
-      done: false
-    };
-    createNewTaskBox(task);
-    postData(task);
-    inputField.value = " ";
-  }
-});
-inputField.addEventListener("keyup", function (event) {
-  newTaskInput = event.target.value;
-
-  if (event.keyCode === 13) {
-    // event.preventDefault();
-    var task = {
-      description: newTaskInput,
-      done: false
-    };
-    createNewTaskBox(task);
-    postData(task);
-    inputField.value = " ";
-  } else if (inputField.value == " ") {
-    alert("Type a new task to add something!");
+    addNewTask();
   }
 });

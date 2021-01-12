@@ -14,6 +14,7 @@ getTasks();
 
 // <--------------- CREATES A NEW TASK ------------------------->
 const createNewTaskBox = (task) => {
+
     const taskBox = document.createElement("div");
     taskBox.classList.add("taskBox");
 
@@ -40,10 +41,14 @@ const createNewTaskBox = (task) => {
     toDoList.appendChild(taskBox);
     taskBox.append(checkBox, newTask, editButton, removeButton);
 
+// <-------------------- REMOVE BUTTON -------------------------->
+
     removeButton.addEventListener("click", (event) =>{
         taskBox.remove();
         deleteDataById(task._id);
     });
+    
+    
 // <----------------- EDIT TASKS ------------------------------>
     editButton.addEventListener("click", () => {
         newTask.disabled =! newTask.disabled;
@@ -52,60 +57,56 @@ const createNewTaskBox = (task) => {
             if (event.keyCode===13){
                 const newTaskText = event.target.value;
                 let editedTask = {description: newTaskText, done:false};
-                putNewText(task._id, editedTask); 
+                putData(task._id, editedTask); 
                 newTask.disabled= true;
                 newTask.classList.remove("edit_task");
             };
         })
     })
+
 // <-------------------CHECK TASKS------------------------------>
-// <-------------------description verandert na checken?!?!?---->
     checkBox.addEventListener("change", (event) => {
         if (checkBox.checked == true){
             newTask.classList.add("striketrough");
-            newTaskInput = event.target.value;
-            let taskDone = {description: newTaskInput, done:true};
-            putDone(task._id, taskDone); 
-            checkBox.checked;
+            let taskDone = {description: `${task.description}`, done:true};
+            putData(task._id, taskDone); 
         } else if (checkBox.checked == false) {
-            // checkBox.uncheck;
             newTask.classList.remove("striketrough");
-            
-            let taskDone = {description: newTaskInput, done:false};
-            putDone(task._id, taskDone);
+            let taskDone = {description: `${task.description}`, done:false};
+            putData(task._id, taskDone);
         }
         
     });
 
 };
 
+
 // <------------------ ADDS & POSTS A NEW TASK ------------------>
-//<---------------kunnen deze in 1 functie ???? ----------------->
+
+const addNewTask = () =>  {
+    let newTaskInput = inputField.value;
+    let task = {description: newTaskInput, done: false};
+    createNewTaskBox(task);
+    postData(task);
+    inputField.value= " ";
+}
+
+inputField.addEventListener ("keyup", (event) => {
+    if (inputField.value == " ") {
+        alert ("Type a new task to add something!");
+    } else if (event.keyCode === 13) {
+        addNewTask();
+    }
+});
 
 addTaskButton.addEventListener("click", (event) => {
     if (inputField.value == " ") {
         alert ("Type a new task to add something!");
     } else {
-        newTaskInput = event.target.value;
-        let task = {description: newTaskInput, done:false};
-        createNewTaskBox(task);
-        postData(task); 
-        inputField.value = " ";
+        addNewTask();
     }
 })
 
-inputField.addEventListener ("keyup", (event) => {
-    newTaskInput = event.target.value;
-    if (event.keyCode === 13) {
-        // event.preventDefault();
-        let task = {description: newTaskInput, done:false};
-        createNewTaskBox(task);
-        postData(task);
-        inputField.value = " ";
-    } else if (inputField.value == " ") {
-        alert ("Type a new task to add something!")
-    }
-});
 
 
 

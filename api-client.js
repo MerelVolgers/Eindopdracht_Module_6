@@ -40,8 +40,9 @@ const deleteDataById = async (id) => {
 };
 
 // <-----------PUT: update en bestaande taak met de PUT method ----->
+// <------PUT: update een bestaande taak de property done of niet done--->
 
-const putNewText = async (id, data) => {
+const putData = async (id, data) => {
     const idToUpdate = apiUrl + id;
     const result = await fetch (idToUpdate, {
         method: "PUT",
@@ -54,18 +55,3 @@ const putNewText = async (id, data) => {
     console.log(json); 
 } 
 
-
-// <------PUT: update een bestaande taak de property done of niet done--->
-
-const putDone = async (id, data) => {
-    const idDone = apiUrl + id;
-    const result = await fetch (idDone, {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type" : "application/json",
-        },
-    });
-    const json = await result.json();
-    console.log(json); 
-} 
