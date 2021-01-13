@@ -18,7 +18,8 @@ const getData = async () => {
 };
 
 const postData = async (data) => { 
-    const result = await fetch (apiUrl, {
+    const taskToPost = apiUrl; //+ id;
+    const result = await fetch (taskToPost, {
         method: "POST",
         body: JSON.stringify(data), 
         headers: {
@@ -27,6 +28,8 @@ const postData = async (data) => {
     });
     const json = await result.json();
     console.log(json);
+    // console.log(json._id);
+    return(json._id);
 };
 
 

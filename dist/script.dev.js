@@ -38,10 +38,17 @@ var createNewTaskBox = function createNewTaskBox(task) {
   checkBox.classList.add("checkBox");
   var newTask = document.createElement("input");
   newTask.type = "text";
-  newTask.value = "".concat(task.description);
+  newTask.value = "".concat(task.description); // newTask.value = inputField.value; // <---- is dit nodig of al aagenmaakt
+
   newTask.setAttribute("id", task._id);
   newTask.disabled = true;
   newTask.classList.add("task_input");
+
+  if (task.done == true) {
+    newTask.classList.add("strikethrough");
+  }
+
+  ;
   var editButton = document.createElement("button");
   editButton.innerHTML = "<i class=\"fas fa-edit\"></i>";
   editButton.classList.add("editButton");
@@ -93,17 +100,45 @@ var createNewTaskBox = function createNewTaskBox(task) {
     }
   });
 }; // <------------------ ADDS & POSTS A NEW TASK ------------------>
+//Dus voeg je een nieuw item toe aan je TODO:
+// 1. voeg dit toe in je DOM
+// 2. stuur een bericht naar de API
+// 3. haal de nieuwe data op bij de API
+// 4. ververs dan de DOM nogmaals
 
 
 var addNewTask = function addNewTask() {
-  var newTaskInput = inputField.value;
-  var task = {
-    description: newTaskInput,
-    done: false
-  };
-  createNewTaskBox(task);
-  postData(task);
-  inputField.value = " ";
+  var newTaskInput, getIdOfTask;
+  return regeneratorRuntime.async(function addNewTask$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          newTaskInput = {
+            description: inputField.value,
+            done: false
+          }; // 1.wat je wilt toevoegen aan de DOM
+
+          createNewTaskBox(newTaskInput); // 1.adds taskbox to the DOM
+
+          inputField.value = " "; // 1.empties inputfield in the DOM
+
+          _context2.next = 5;
+          return regeneratorRuntime.awrap(postData(newTaskInput));
+
+        case 5:
+          getIdOfTask = _context2.sent;
+          //2. stuurt data naar API om id terug te krijgen
+          // console.log(getIdOfTask); // logt de teruggegeven id van de nieuwe task
+          toDoList.innerHTML = " "; // leegt oude data uit de DOM
+
+          getTasks(getIdOfTask); //logt nieuwe data in de DOM op bij API incl nieuwste task
+
+        case 8:
+        case "end":
+          return _context2.stop();
+      }
+    }
+  });
 };
 
 inputField.addEventListener("keyup", function (event) {

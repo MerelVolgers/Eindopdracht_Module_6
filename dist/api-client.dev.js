@@ -41,13 +41,15 @@ var getData = function getData() {
 };
 
 var postData = function postData(data) {
-  var result, json;
+  var taskToPost, result, json;
   return regeneratorRuntime.async(function postData$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          _context2.next = 2;
-          return regeneratorRuntime.awrap(fetch(apiUrl, {
+          taskToPost = apiUrl; //+ id;
+
+          _context2.next = 3;
+          return regeneratorRuntime.awrap(fetch(taskToPost, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -55,16 +57,18 @@ var postData = function postData(data) {
             }
           }));
 
-        case 2:
+        case 3:
           result = _context2.sent;
-          _context2.next = 5;
+          _context2.next = 6;
           return regeneratorRuntime.awrap(result.json());
 
-        case 5:
+        case 6:
           json = _context2.sent;
-          console.log(json);
+          console.log(json); // console.log(json._id);
 
-        case 7:
+          return _context2.abrupt("return", json._id);
+
+        case 9:
         case "end":
           return _context2.stop();
       }

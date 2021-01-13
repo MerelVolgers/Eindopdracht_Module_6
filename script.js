@@ -26,9 +26,14 @@ const createNewTaskBox = (task) => {
     const newTask = document.createElement("input");
     newTask.type="text";
     newTask.value = (`${task.description}`);
-    newTask.setAttribute("id", task._id);
+    // newTask.value = inputField.value; // <---- is dit nodig of al aagenmaakt
+    newTask.setAttribute("id", task._id); 
     newTask.disabled = true;
     newTask.classList.add("task_input");
+    
+    if (task.done == true) {
+        newTask.classList.add("strikethrough")
+    };
 
     const editButton = document.createElement("button");
     editButton.innerHTML = (`<i class="fas fa-edit"></i>`)
@@ -75,27 +80,39 @@ const createNewTaskBox = (task) => {
             let taskDone = {description: `${task.description}`, done:false};
             putData(task._id, taskDone);
         }
-        
     });
-
-};
+}
 
 
 // <------------------ ADDS & POSTS A NEW TASK ------------------>
 
-const addNewTask = () =>  {
-    let newTaskInput = inputField.value;
-    let task = {description: newTaskInput, done: false};
-    createNewTaskBox(task);
-    postData(task);
-    inputField.value= " ";
+
+//Dus voeg je een nieuw item toe aan je TODO:
+// 1. voeg dit toe in je DOM
+// 2. stuur een bericht naar de API
+// 3. haal de nieuwe data op bij de API
+// 4. ververs dan de DOM nogmaals
+
+
+const addNewTask = async () =>  {
+
+    let newTaskInput = {description: inputField.value, done:false}; // 1.wat je wilt toevoegen aan de DOM
+    createNewTaskBox(newTaskInput); // 1.adds taskbox to the DOM
+    inputField.value= " "; // 1.empties inputfield in the DOM
+    
+    const getIdOfTask = await postData (newTaskInput); //2. stuurt data naar API om id terug te krijgen
+    // console.log(getIdOfTask); // logt de teruggegeven id van de nieuwe task
+    
+    toDoList.innerHTML = " "; // leegt oude data uit de DOM
+    getTasks(getIdOfTask); //logt nieuwe data in de DOM op bij API incl nieuwste task
 }
 
 inputField.addEventListener ("keyup", (event) => {
+
     if (inputField.value == " ") {
         alert ("Type a new task to add something!");
     } else if (event.keyCode === 13) {
-        addNewTask();
+            addNewTask();
     }
 });
 
@@ -105,9 +122,4 @@ addTaskButton.addEventListener("click", (event) => {
     } else {
         addNewTask();
     }
-})
-
-
-
-
-
+});
