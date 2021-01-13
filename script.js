@@ -21,7 +21,7 @@ const createNewTaskBox = (task) => {
     const checkBox = document.createElement("input");
     checkBox.type = "checkbox";
     checkBox.classList.add("checkBox");
-    checkBox.checked = task.done; // wanneer taak gedaan is, blijft checkbox checked
+    checkBox.checked = task.done; // wanneer taak gedaan is, blijft checkbox checked na reload
 
     const newTask = document.createElement("input");
     newTask.type="text";
@@ -30,7 +30,7 @@ const createNewTaskBox = (task) => {
     newTask.disabled = true;
     newTask.classList.add("task_input");
 
-    if (checkBox.checked) {newTask.classList.add("striketrough")}; //checked>strike
+    if (checkBox.checked) {newTask.classList.add("striketrough")}; //checked>striketext
 
     const editButton = document.createElement("button");
     editButton.innerHTML = (`<i class="fas fa-edit"></i>`)
@@ -40,24 +40,41 @@ const createNewTaskBox = (task) => {
     removeButton.innerHTML = (`<i class="far fa-trash-alt"></i>`)
     removeButton.classList.add("removeButton");
 
+    // toDoList.prepend(taskBox);
     toDoList.append(taskBox);
     taskBox.append(checkBox, newTask, editButton, removeButton);
 
-// <-------------------- REMOVE BUTTON -------------------------->
+ // <-------------------- REMOVE BUTTON -------------------------->
 
     removeButton.addEventListener("click", (event) =>{
         taskBox.remove();
         deleteDataById(task._id);
     });
     
-// <----------------- EDIT TASKS ------------------------------>
+ // <-------------------CHECK TASKS------------------------------>
+
+    checkBox.addEventListener("change",  (event) => {
+    
+        if (checkBox.checked) {
+            newTask.classList.add("striketrough");
+            let data = {description: `${task.description}`, done: checkBox.checked};
+            putData(task._id, data);
+        } else {
+            newTask.classList.remove("striketrough");
+            let data = {description:`${task.description}`, done: checkBox.checked};
+            putData(task._id, data);
+        }
+
+    });
+
+ // <----------------- EDIT TASKS ------------------------------>
     editButton.addEventListener("click", () => {
         newTask.disabled =! newTask.disabled;
         newTask.classList.add("edit_task");
         newTask.addEventListener("keyup", (event) =>{
+
             if (event.keyCode===13){
-                let newTaskText = event.target.value;
-                let data = {description: newTaskText, done:false};
+                let data = {description: event.target.value, done: checkBox.checked};
                 putData(task._id, data); 
                 newTask.disabled= true;
                 newTask.classList.remove("edit_task");
@@ -65,21 +82,6 @@ const createNewTaskBox = (task) => {
         })
     })
 
-// <-------------------CHECK TASKS------------------------------>
-
-    checkBox.addEventListener("change", async (event) => {
-        
-        if (checkBox.checked === true){
-            newTask.classList.add("striketrough");
-            let data = {description: `${task.description}`, done: true};
-            putData(task._id, data);
-
-        } else if (checkBox.checked === false) {
-            newTask.classList.remove("striketrough");
-            let data = {description:`${task.description}`, done: false};
-            putData(task._id, data);
-        }
-    });
 }
 
 // <------------------ ADDS & POSTS A NEW TASK ------------------>
@@ -89,12 +91,9 @@ const addNewTask = async () =>  {
     let newTaskInput = {description: inputField.value, done:false}; // 1.wat je wilt toevoegen aan de DOM
     createNewTaskBox(newTaskInput); // 1.adds taskbox to the DOM
     inputField.value= " "; // 1.empties inputfield in the DOM
-    
-    const getIdOfTask = await postData (newTaskInput); //2. stuurt data naar API om id terug te krijgen
-    // console.log(getIdOfTask); // logt de teruggegeven id van de nieuwe task
-    
-    // toDoList.innerHTML = " "; // leegt oude data uit de DOM
-    // getTasks(getIdOfTask); //logt nieuwe data in de DOM op bij API incl nieuwste task
+    const getIdOfTask = await postData (newTaskInput); //2. stuurt data naar API om id terug te krijgen    
+    getTasks(getIdOfTask); //logt nieuwe data in de DOM op bij API incl nieuwste task
+    toDoList.innerHTML = " "; // leegt oude data uit de DOM
 }
 
 inputField.addEventListener ("keyup", (event) => {
