@@ -91,10 +91,11 @@ const addNewTask = async () =>  {
     let newTaskInput = {description: inputField.value, done:false}; // 1.wat je wilt toevoegen aan de DOM
     createNewTaskBox(newTaskInput); // 1.adds taskbox to the DOM
     inputField.value= " "; // 1.empties inputfield in the DOM
+    
     const getIdOfTask = await postData (newTaskInput); //2. stuurt data naar API om id terug te krijgen    
     getTasks(getIdOfTask); //logt nieuwe data in de DOM op bij API incl nieuwste task
     toDoList.innerHTML = " "; // leegt oude data uit de DOM
-}
+};
 
 inputField.addEventListener ("keyup", (event) => {
     if (inputField.value == " ") {
