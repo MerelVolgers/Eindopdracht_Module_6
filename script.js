@@ -20,20 +20,17 @@ const createNewTaskBox = (task) => {
 
     const checkBox = document.createElement("input");
     checkBox.type = "checkbox";
-    // checkBox.checked = false;
     checkBox.classList.add("checkBox");
+    checkBox.checked = task.done; // wanneer taak gedaan is, blijft checkbox checked
 
     const newTask = document.createElement("input");
     newTask.type="text";
     newTask.value = (`${task.description}`);
-    // newTask.value = inputField.value; // <---- is dit nodig of al aagenmaakt
     newTask.setAttribute("id", task._id); 
     newTask.disabled = true;
     newTask.classList.add("task_input");
-    
-    if (task.done == true) {
-        newTask.classList.add("strikethrough")
-    };
+
+    if (checkBox.checked) {newTask.classList.add("striketrough")}; //checked>strike
 
     const editButton = document.createElement("button");
     editButton.innerHTML = (`<i class="fas fa-edit"></i>`)
@@ -43,7 +40,7 @@ const createNewTaskBox = (task) => {
     removeButton.innerHTML = (`<i class="far fa-trash-alt"></i>`)
     removeButton.classList.add("removeButton");
 
-    toDoList.appendChild(taskBox);
+    toDoList.append(taskBox);
     taskBox.append(checkBox, newTask, editButton, removeButton);
 
 // <-------------------- REMOVE BUTTON -------------------------->
@@ -53,16 +50,15 @@ const createNewTaskBox = (task) => {
         deleteDataById(task._id);
     });
     
-    
 // <----------------- EDIT TASKS ------------------------------>
     editButton.addEventListener("click", () => {
         newTask.disabled =! newTask.disabled;
         newTask.classList.add("edit_task");
         newTask.addEventListener("keyup", (event) =>{
             if (event.keyCode===13){
-                const newTaskText = event.target.value;
-                let editedTask = {description: newTaskText, done:false};
-                putData(task._id, editedTask); 
+                let newTaskText = event.target.value;
+                let data = {description: newTaskText, done:false};
+                putData(task._id, data); 
                 newTask.disabled= true;
                 newTask.classList.remove("edit_task");
             };
@@ -70,29 +66,23 @@ const createNewTaskBox = (task) => {
     })
 
 // <-------------------CHECK TASKS------------------------------>
-    checkBox.addEventListener("change", (event) => {
-        if (checkBox.checked == true){
+
+    checkBox.addEventListener("change", async (event) => {
+        
+        if (checkBox.checked === true){
             newTask.classList.add("striketrough");
-            let taskDone = {description: `${task.description}`, done:true};
-            putData(task._id, taskDone); 
-        } else if (checkBox.checked == false) {
+            let data = {description: `${task.description}`, done: true};
+            putData(task._id, data);
+
+        } else if (checkBox.checked === false) {
             newTask.classList.remove("striketrough");
-            let taskDone = {description: `${task.description}`, done:false};
-            putData(task._id, taskDone);
+            let data = {description:`${task.description}`, done: false};
+            putData(task._id, data);
         }
     });
 }
 
-
 // <------------------ ADDS & POSTS A NEW TASK ------------------>
-
-
-//Dus voeg je een nieuw item toe aan je TODO:
-// 1. voeg dit toe in je DOM
-// 2. stuur een bericht naar de API
-// 3. haal de nieuwe data op bij de API
-// 4. ververs dan de DOM nogmaals
-
 
 const addNewTask = async () =>  {
 
@@ -103,12 +93,11 @@ const addNewTask = async () =>  {
     const getIdOfTask = await postData (newTaskInput); //2. stuurt data naar API om id terug te krijgen
     // console.log(getIdOfTask); // logt de teruggegeven id van de nieuwe task
     
-    toDoList.innerHTML = " "; // leegt oude data uit de DOM
-    getTasks(getIdOfTask); //logt nieuwe data in de DOM op bij API incl nieuwste task
+    // toDoList.innerHTML = " "; // leegt oude data uit de DOM
+    // getTasks(getIdOfTask); //logt nieuwe data in de DOM op bij API incl nieuwste task
 }
 
 inputField.addEventListener ("keyup", (event) => {
-
     if (inputField.value == " ") {
         alert ("Type a new task to add something!");
     } else if (event.keyCode === 13) {

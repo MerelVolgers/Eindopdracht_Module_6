@@ -33,29 +33,30 @@ var createNewTaskBox = function createNewTaskBox(task) {
   var taskBox = document.createElement("div");
   taskBox.classList.add("taskBox");
   var checkBox = document.createElement("input");
-  checkBox.type = "checkbox"; // checkBox.checked = false;
-
+  checkBox.type = "checkbox";
   checkBox.classList.add("checkBox");
+  checkBox.checked = task.done; // wanneer taak gedaan is, blijft checkbox checked
+
   var newTask = document.createElement("input");
   newTask.type = "text";
-  newTask.value = "".concat(task.description); // newTask.value = inputField.value; // <---- is dit nodig of al aagenmaakt
-
+  newTask.value = "".concat(task.description);
   newTask.setAttribute("id", task._id);
   newTask.disabled = true;
   newTask.classList.add("task_input");
 
-  if (task.done == true) {
-    newTask.classList.add("strikethrough");
+  if (checkBox.checked) {
+    newTask.classList.add("striketrough");
   }
 
-  ;
+  ; //checked>strike
+
   var editButton = document.createElement("button");
   editButton.innerHTML = "<i class=\"fas fa-edit\"></i>";
   editButton.classList.add("editButton");
   var removeButton = document.createElement("button");
   removeButton.innerHTML = "<i class=\"far fa-trash-alt\"></i>";
   removeButton.classList.add("removeButton");
-  toDoList.appendChild(taskBox);
+  toDoList.append(taskBox);
   taskBox.append(checkBox, newTask, editButton, removeButton); // <-------------------- REMOVE BUTTON -------------------------->
 
   removeButton.addEventListener("click", function (event) {
@@ -69,11 +70,11 @@ var createNewTaskBox = function createNewTaskBox(task) {
     newTask.addEventListener("keyup", function (event) {
       if (event.keyCode === 13) {
         var newTaskText = event.target.value;
-        var editedTask = {
+        var data = {
           description: newTaskText,
           done: false
         };
-        putData(task._id, editedTask);
+        putData(task._id, data);
         newTask.disabled = true;
         newTask.classList.remove("edit_task");
       }
@@ -82,36 +83,44 @@ var createNewTaskBox = function createNewTaskBox(task) {
     });
   }); // <-------------------CHECK TASKS------------------------------>
 
-  checkBox.addEventListener("change", function (event) {
-    if (checkBox.checked == true) {
-      newTask.classList.add("striketrough");
-      var taskDone = {
-        description: "".concat(task.description),
-        done: true
-      };
-      putData(task._id, taskDone);
-    } else if (checkBox.checked == false) {
-      newTask.classList.remove("striketrough");
-      var _taskDone = {
-        description: "".concat(task.description),
-        done: false
-      };
-      putData(task._id, _taskDone);
-    }
+  checkBox.addEventListener("change", function _callee(event) {
+    var data, _data;
+
+    return regeneratorRuntime.async(function _callee$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            if (checkBox.checked === true) {
+              newTask.classList.add("striketrough");
+              data = {
+                description: "".concat(task.description),
+                done: true
+              };
+              putData(task._id, data);
+            } else if (checkBox.checked === false) {
+              newTask.classList.remove("striketrough");
+              _data = {
+                description: "".concat(task.description),
+                done: false
+              };
+              putData(task._id, _data);
+            }
+
+          case 1:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    });
   });
 }; // <------------------ ADDS & POSTS A NEW TASK ------------------>
-//Dus voeg je een nieuw item toe aan je TODO:
-// 1. voeg dit toe in je DOM
-// 2. stuur een bericht naar de API
-// 3. haal de nieuwe data op bij de API
-// 4. ververs dan de DOM nogmaals
 
 
 var addNewTask = function addNewTask() {
   var newTaskInput, getIdOfTask;
-  return regeneratorRuntime.async(function addNewTask$(_context2) {
+  return regeneratorRuntime.async(function addNewTask$(_context3) {
     while (1) {
-      switch (_context2.prev = _context2.next) {
+      switch (_context3.prev = _context3.next) {
         case 0:
           newTaskInput = {
             description: inputField.value,
@@ -122,20 +131,15 @@ var addNewTask = function addNewTask() {
 
           inputField.value = " "; // 1.empties inputfield in the DOM
 
-          _context2.next = 5;
+          _context3.next = 5;
           return regeneratorRuntime.awrap(postData(newTaskInput));
 
         case 5:
-          getIdOfTask = _context2.sent;
-          //2. stuurt data naar API om id terug te krijgen
-          // console.log(getIdOfTask); // logt de teruggegeven id van de nieuwe task
-          toDoList.innerHTML = " "; // leegt oude data uit de DOM
+          getIdOfTask = _context3.sent;
 
-          getTasks(getIdOfTask); //logt nieuwe data in de DOM op bij API incl nieuwste task
-
-        case 8:
+        case 6:
         case "end":
-          return _context2.stop();
+          return _context3.stop();
       }
     }
   });

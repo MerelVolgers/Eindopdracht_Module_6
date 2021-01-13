@@ -18,8 +18,7 @@ const getData = async () => {
 };
 
 const postData = async (data) => { 
-    const taskToPost = apiUrl; //+ id;
-    const result = await fetch (taskToPost, {
+    const result = await fetch (apiUrl, {
         method: "POST",
         body: JSON.stringify(data), 
         headers: {
