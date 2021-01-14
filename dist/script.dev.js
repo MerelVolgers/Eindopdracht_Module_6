@@ -15,7 +15,7 @@ var getTasks = function getTasks() {
 
         case 2:
           data = _context.sent;
-          getTask = data.map(function (task) {
+          getTask = data.forEach(function (task) {
             createNewTaskBox(task);
           });
 
@@ -55,59 +55,90 @@ var createNewTaskBox = function createNewTaskBox(task) {
   editButton.classList.add("editButton");
   var removeButton = document.createElement("button");
   removeButton.innerHTML = "<i class=\"far fa-trash-alt\"></i>";
-  removeButton.classList.add("removeButton"); // toDoList.prepend(taskBox);
-
-  toDoList.append(taskBox);
-  taskBox.append(checkBox, newTask, editButton, removeButton); // <-------------------- REMOVE BUTTON -------------------------->
+  removeButton.classList.add("removeButton"); // <-------------------- REMOVE BUTTON -------------------------->
 
   removeButton.addEventListener("click", function (event) {
     taskBox.remove();
     deleteDataById(task._id);
-  }); // <-------------------CHECK TASKS------------------------------>
-
-  checkBox.addEventListener("change", function (event) {
-    if (checkBox.checked) {
-      newTask.classList.add("striketrough");
-      var data = {
-        description: "".concat(task.description),
-        done: checkBox.checked
-      };
-      putData(task._id, data);
-    } else {
-      newTask.classList.remove("striketrough");
-      var _data = {
-        description: "".concat(task.description),
-        done: checkBox.checked
-      };
-      putData(task._id, _data);
-    }
   }); // <----------------- EDIT TASKS ------------------------------>
 
-  editButton.addEventListener("click", function () {
-    newTask.disabled = !newTask.disabled;
-    newTask.classList.add("edit_task");
-    newTask.addEventListener("keyup", function (event) {
-      if (event.keyCode === 13) {
-        var data = {
-          description: event.target.value,
-          done: checkBox.checked
-        };
-        putData(task._id, data);
-        newTask.disabled = true;
-        newTask.classList.remove("edit_task");
-      }
+  editButton.addEventListener("click", function _callee() {
+    return regeneratorRuntime.async(function _callee$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return regeneratorRuntime.awrap(putData());
 
-      ;
+          case 2:
+            newTask.disabled = !newTask.disabled;
+            newTask.classList.add("edit_task");
+            newTask.addEventListener("keyup", function (event) {
+              if (event.keyCode === 13) {
+                var data = {
+                  description: event.target.value,
+                  done: checkBox.checked
+                };
+                putData(task._id, data);
+                newTask.disabled = true;
+                newTask.classList.remove("edit_task");
+              }
+
+              ;
+            });
+
+          case 5:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    });
+  }); // <-------------------CHECK TASKS------------------------------>
+
+  checkBox.addEventListener("change", function _callee2(event) {
+    var data, _data;
+
+    return regeneratorRuntime.async(function _callee2$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return regeneratorRuntime.awrap(putData());
+
+          case 2:
+            if (checkBox.checked) {
+              newTask.classList.add("striketrough");
+              data = {
+                description: "".concat(task.description),
+                done: checkBox.checked
+              };
+              putData(task._id, data);
+            } else {
+              newTask.classList.remove("striketrough");
+              _data = {
+                description: "".concat(task.description),
+                done: checkBox.checked
+              };
+              putData(task._id, _data);
+            }
+
+          case 3:
+          case "end":
+            return _context3.stop();
+        }
+      }
     });
   });
+  toDoList.append(taskBox);
+  taskBox.append(checkBox, newTask, editButton, removeButton);
 }; // <------------------ ADDS & POSTS A NEW TASK ------------------>
 
 
 var addNewTask = function addNewTask() {
   var newTaskInput, getIdOfTask;
-  return regeneratorRuntime.async(function addNewTask$(_context2) {
+  return regeneratorRuntime.async(function addNewTask$(_context4) {
     while (1) {
-      switch (_context2.prev = _context2.next) {
+      switch (_context4.prev = _context4.next) {
         case 0:
           newTaskInput = {
             description: inputField.value,
@@ -118,11 +149,11 @@ var addNewTask = function addNewTask() {
 
           inputField.value = " "; // 1.empties inputfield in the DOM
 
-          _context2.next = 5;
+          _context4.next = 5;
           return regeneratorRuntime.awrap(postData(newTaskInput));
 
         case 5:
-          getIdOfTask = _context2.sent;
+          getIdOfTask = _context4.sent;
           //2. stuurt data naar API om id terug te krijgen    
           getTasks(getIdOfTask); //logt nieuwe data in de DOM op bij API incl nieuwste task
 
@@ -130,7 +161,7 @@ var addNewTask = function addNewTask() {
 
         case 8:
         case "end":
-          return _context2.stop();
+          return _context4.stop();
       }
     }
   });

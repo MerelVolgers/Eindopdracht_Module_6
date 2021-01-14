@@ -6,7 +6,7 @@ const inputField = document.getElementById("input");
 
 const getTasks = async () => {
     const data = await getData();
-    const getTask = data.map(task =>{
+    const getTask = data.forEach(task =>{
         createNewTaskBox(task);
     });
 }
@@ -39,10 +39,7 @@ const createNewTaskBox = (task) => {
     const removeButton = document.createElement("button");
     removeButton.innerHTML = (`<i class="far fa-trash-alt"></i>`)
     removeButton.classList.add("removeButton");
-
-    // toDoList.prepend(taskBox);
-    toDoList.append(taskBox);
-    taskBox.append(checkBox, newTask, editButton, removeButton);
+    
 
  // <-------------------- REMOVE BUTTON -------------------------->
 
@@ -51,24 +48,9 @@ const createNewTaskBox = (task) => {
         deleteDataById(task._id);
     });
     
- // <-------------------CHECK TASKS------------------------------>
-
-    checkBox.addEventListener("change",  (event) => {
-    
-        if (checkBox.checked) {
-            newTask.classList.add("striketrough");
-            let data = {description: `${task.description}`, done: checkBox.checked};
-            putData(task._id, data);
-        } else {
-            newTask.classList.remove("striketrough");
-            let data = {description:`${task.description}`, done: checkBox.checked};
-            putData(task._id, data);
-        }
-
-    });
-
- // <----------------- EDIT TASKS ------------------------------>
-    editButton.addEventListener("click", () => {
+// <----------------- EDIT TASKS ------------------------------>
+    editButton.addEventListener("click", async () => {
+        await putData();
         newTask.disabled =! newTask.disabled;
         newTask.classList.add("edit_task");
         newTask.addEventListener("keyup", (event) =>{
@@ -82,6 +64,24 @@ const createNewTaskBox = (task) => {
         })
     })
 
+ // <-------------------CHECK TASKS------------------------------>
+
+    checkBox.addEventListener("change", async (event) => {
+    await putData();
+        if (checkBox.checked) {
+            newTask.classList.add("striketrough");
+            let data = {description: `${task.description}`, done: checkBox.checked};
+            putData(task._id, data);
+        } else {
+            newTask.classList.remove("striketrough");
+            let data = {description:`${task.description}`, done: checkBox.checked};
+            putData(task._id, data);
+        }
+
+    });
+
+    toDoList.append(taskBox);
+    taskBox.append(checkBox, newTask, editButton, removeButton);
 }
 
 // <------------------ ADDS & POSTS A NEW TASK ------------------>
